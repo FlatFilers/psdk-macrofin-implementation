@@ -10,7 +10,10 @@ import {
   Message,
   ReferenceField,
 } from '@flatfile/configure'
+
 import { SmartDateField } from '../../src/SmartDateField'
+import { validateRegex } from '../../src/common/common'
+import { customerID, email } from '../../src/common/regex'
 
 export const Customers = new Sheet(
   'Customers',
@@ -34,11 +37,12 @@ export const Customers = new Sheet(
         'This is the Front-End Customer ID. It will be combined with the Company or Invididual Name to create the full Entity ID.   ID should be unique for all  Customers. This field is not required if you use Auto-Generated Numbers.',
       required: true,
       unique: true,
-      validate: (value) => {
-        const regex = new RegExp('^(?=.{1,80$).*', 'i')
-        if (!regex.test(value)) {
-          return [new Message('Invalid value', 'error', 'validate')]
-        }
+      validate: (v: string) => {
+        return validateRegex(
+          v,
+          customerID,
+          'Customer ID must be 80 characters or less.'
+        )
       },
     }),
 
@@ -211,17 +215,12 @@ export const Customers = new Sheet(
       label: 'Email',
       description:
         'This field should contain the main E-mail Address of the Customer.  The Information entered for this field must conform to the standard e-mail Address format. i.e.user@domain.com',
-      validate: (value) => {
-        const regex = new RegExp('^$|^[w-.]+@([w-]+.)+[w-]{2,4}$', '')
-        if (!regex.test(value)) {
-          return [
-            new Message(
-              'The information entered for this field must conform to the standard e-mail Address format. i.e. user@domain.com.',
-              'error',
-              'validate'
-            ),
-          ]
-        }
+      validate: (v: string) => {
+        return validateRegex(
+          v,
+          email,
+          'Email must conform to the standard e-mail Address format. i.e.user@domain.com'
+        )
       },
     }),
 
@@ -231,17 +230,12 @@ export const Customers = new Sheet(
       label: 'Alt. Email',
       description:
         'This field is only available for Individual Customers.  This field should contain the alternate E-mail Address of the Customer.    The Information entered for this field must conform to the standard e-mail Address format. i.e. user@domain.com.',
-      validate: (value) => {
-        const regex = new RegExp('^$|^[w-.]+@([w-]+.)+[w-]{2,4}$', '')
-        if (!regex.test(value)) {
-          return [
-            new Message(
-              'The information entered for this field must conform to the standard e-mail Address format. i.e. user@domain.com.',
-              'error',
-              'validate'
-            ),
-          ]
-        }
+      validate: (v: string) => {
+        return validateRegex(
+          v,
+          email,
+          'Email must conform to the standard e-mail Address format. i.e.user@domain.com'
+        )
       },
     }),
 
@@ -578,8 +572,8 @@ export const Customers = new Sheet(
     goodForReference: OptionField({
       label: 'Good for reference?',
       options: {
-        'yes': 'Yes',
-        'once_live': 'Once Live',
+        yes: 'Yes',
+        once_live: 'Once Live',
       },
     }),
 
@@ -634,17 +628,12 @@ export const Customers = new Sheet(
       label: 'Contact 1 Email',
       description:
         'The Information entered for this field must conform to the standard e-mail Address format. i.e.user@domain.com',
-      validate: (value) => {
-        const regex = new RegExp('^$|^[w-.]+@([w-]+.)+[w-]{2,4}$', '')
-        if (!regex.test(value)) {
-          return [
-            new Message(
-              'The information entered for this field must conform to the standard e-mail Address format. i.e. user@domain.com.',
-              'error',
-              'validate'
-            ),
-          ]
-        }
+      validate: (v: string) => {
+        return validateRegex(
+          v,
+          email,
+          'Email must conform to the standard e-mail Address format. i.e.user@domain.com'
+        )
       },
     }),
 
@@ -659,7 +648,7 @@ export const Customers = new Sheet(
         }
       },
     }),
-    
+
     contact1_lname: TextField({
       label: 'Contact 1 Last Name',
       description:
@@ -676,17 +665,12 @@ export const Customers = new Sheet(
       label: 'Contact 2 Email',
       description:
         'The Information entered for this field must conform to the standard e-mail Address format. i.e.user@domain.com',
-      validate: (value) => {
-        const regex = new RegExp('^$|^[w-.]+@([w-]+.)+[w-]{2,4}$', '')
-        if (!regex.test(value)) {
-          return [
-            new Message(
-              'The information entered for this field must conform to the standard e-mail Address format. i.e. user@domain.com.',
-              'error',
-              'validate'
-            ),
-          ]
-        }
+      validate: (v: string) => {
+        return validateRegex(
+          v,
+          email,
+          'Email must conform to the standard e-mail Address format. i.e.user@domain.com'
+        )
       },
     }),
 
@@ -701,7 +685,7 @@ export const Customers = new Sheet(
         }
       },
     }),
-    
+
     contact2_lname: TextField({
       label: 'Contact 2 Last Name',
       description:
@@ -718,17 +702,12 @@ export const Customers = new Sheet(
       label: 'Contact 3 Email',
       description:
         'The Information entered for this field must conform to the standard e-mail Address format. i.e.user@domain.com',
-      validate: (value) => {
-        const regex = new RegExp('^$|^[w-.]+@([w-]+.)+[w-]{2,4}$', '')
-        if (!regex.test(value)) {
-          return [
-            new Message(
-              'The information entered for this field must conform to the standard e-mail Address format. i.e. user@domain.com.',
-              'error',
-              'validate'
-            ),
-          ]
-        }
+      validate: (v: string) => {
+        return validateRegex(
+          v,
+          email,
+          'Email must conform to the standard e-mail Address format. i.e.user@domain.com'
+        )
       },
     }),
 
@@ -743,7 +722,7 @@ export const Customers = new Sheet(
         }
       },
     }),
-    
+
     contact3_lname: TextField({
       label: 'Contact 3 Last Name',
       description:
@@ -760,17 +739,12 @@ export const Customers = new Sheet(
       label: 'Contact 4 Email',
       description:
         'The Information entered for this field must conform to the standard e-mail Address format. i.e.user@domain.com',
-      validate: (value) => {
-        const regex = new RegExp('^$|^[w-.]+@([w-]+.)+[w-]{2,4}$', '')
-        if (!regex.test(value)) {
-          return [
-            new Message(
-              'The information entered for this field must conform to the standard e-mail Address format. i.e. user@domain.com.',
-              'error',
-              'validate'
-            ),
-          ]
-        }
+      validate: (v: string) => {
+        return validateRegex(
+          v,
+          email,
+          'Email must conform to the standard e-mail Address format. i.e.user@domain.com'
+        )
       },
     }),
 
@@ -785,7 +759,7 @@ export const Customers = new Sheet(
         }
       },
     }),
-    
+
     contact4_lname: TextField({
       label: 'Contact 4 Last Name',
       description:

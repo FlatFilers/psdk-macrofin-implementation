@@ -1,4 +1,5 @@
 import { FlatfileRecord } from '@flatfile/hooks'
+import { Message } from '@flatfile/configure'
 
 /** Checks if value is falsey - returns boolean*/
 const isNil = (val: any) => val === null || val === undefined || val === ''
@@ -27,5 +28,12 @@ const vlookup = (
   }
 }
 
+/** Validates Field Hook that validates a field matches a given regex value.  */
+const validateRegex = (value: string, regex: RegExp, errorMessage: string) => {
+  if (!regex.test(value)) {
+    return [new Message(errorMessage, 'error', 'validate')]
+  }
+}
+
 //Export Values
-export { isNil, isNotNil, vlookup }
+export { isNil, isNotNil, vlookup, validateRegex }
