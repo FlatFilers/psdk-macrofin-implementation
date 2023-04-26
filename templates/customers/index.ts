@@ -543,8 +543,22 @@ export const Customers = new Sheet(
     //   locale: 'fr',
     // }),
 
-    goLiveYear: TextField({
+    goLiveYear: NumberField({
       label: 'Go Live Year',
+      validate: (year: number) => {
+        const currentYear = new Date().getFullYear()
+        const minYear = currentYear - 100 // assuming the minimum year is 100 years ago
+        const maxYear = currentYear + 10 // assuming the maximum year is 10 years from now
+        if (year < minYear || year > maxYear) {
+          return [
+            new Message(
+              `${year} is not a valid year. The year must be between ${minYear} and ${maxYear}.`,
+              'error',
+              'validate'
+            ),
+          ]
+        }
+      },
     }),
 
     winProjectType: ReferenceField({
@@ -600,8 +614,12 @@ export const Customers = new Sheet(
       relationship: 'has-many',
     }),
 
-    impStatus: TextField({
+    impStatus: OptionField({
       label: 'Imp Status',
+      options: {
+        Old: 'Old',
+        New: 'New',
+      },
     }),
 
     tmRate: NumberField({
