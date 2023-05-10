@@ -63,8 +63,10 @@ const macrofinFullProject = new SpaceConfig({
         Department,
         Classes,
         Location,
+        Open_Sales_Order,
         //States_NetSuite_Extract
-        //Countries_NetSuite_Extract
+        //Countries_NetSuite_Extract,
+        
       },
     }),
     vendors: new Workbook({
